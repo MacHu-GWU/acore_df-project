@@ -5,6 +5,7 @@ omit =
     acore_df/docs/*
     acore_df/tests/*
     acore_df/vendor/*
+    acore_df/code_gen/*
     acore_df/_version.py
     acore_df/cli.py
     acore_df/paths.py
