@@ -24,7 +24,7 @@ def test():
 
         assert getattr(dataset.get(random_id), id_col) == random_id
 
-        results = dataset.get_by_kv(kvs={random_key: random_value})
+        results = dataset.get_by_kvs(kvs={random_key: random_value})
         value_set = set([getattr(row, random_key) for row in results])
         assert random_value in value_set
 

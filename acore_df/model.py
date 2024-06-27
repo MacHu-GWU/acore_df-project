@@ -8,7 +8,7 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 
 from .paths import path_sqlite
-from .dataset import BaseDataset
+from .dataset import BaseDataset, download_sqlite
 
 Base = orm.declarative_base()
 
@@ -261,6 +261,20 @@ class FactionsDataset(
 
 @dataclasses.dataclass
 class Lookup:
+    """
+    The main API to access the acore dataframe data. Useful methods are:
+
+    - :meth:`Lookup.${dataset_name}.get <acore_df.dataset.BaseDataset.get>`
+    - :meth:`Lookup.${dataset_name}.get_by_kvs <acore_df.dataset.BaseDataset.get_by_kvs>`
+    - :meth:`Lookup.${dataset_name}.df <acore_df.dataset.BaseDataset.df>`
+    - :meth:`Lookup.${dataset_name}.row_map <acore_df.dataset.BaseDataset.row_map>`
+    - :meth:`Lookup.${dataset_name}.name <acore_df.dataset.BaseDataset>`
+    - :meth:`Lookup.${dataset_name}.id_col <acore_df.dataset.BaseDataset>`
+    - :meth:`Lookup.${dataset_name}.orm_model <acore_df.dataset.BaseDataset>`
+    - :meth:`Lookup.${dataset_name}.orm_table <acore_df.dataset.BaseDataset>`
+    - :meth:`Lookup.${dataset_name}.data_class <acore_df.dataset.BaseDataset>`
+    - :meth:`Lookup.${dataset_name}.engine <acore_df.dataset.BaseDataset>`
+    """
     engine: sa.Engine = dataclasses.field()
     item_template_class: ItemTemplateClassDataset = dataclasses.field()
     item_template_subclass: ItemTemplateSubclassDataset = dataclasses.field()
@@ -273,6 +287,9 @@ class Lookup:
 
     @classmethod
     def new(cls, path_sqlite: Path = path_sqlite):
+        if path_sqlite.exists() is False:
+            download_sqlite(path_sqlite=path_sqlite)
+
         engine = sa.create_engine(f"sqlite:///{path_sqlite}")
         return cls(
             engine=engine,

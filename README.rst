@@ -53,6 +53,8 @@ Welcome to ``acore_df`` Documentation
 .. image:: https://acore-df.readthedocs.io/en/latest/_static/acore_df-logo.png
     :target: https://acore-df.readthedocs.io/en/latest/
 
+这个项目是为了解决在修改 Azerothcore 世界数据库, 会存在很多 ID code 到人类友好的名字的转换问题. 在以前, 为了增加代码的可维护性, 我需要定义 ID 的 Enum, 然后用 ID 取数据库中查找其他的 attribute. 而这样做很难保证数据在不断更新过程中的一致性. 于是我设计了一个新的方案. 新方案的核心是将 Google Sheet 中编写的数据作为 Ground Truth, 然后用 Python 自动生成所有的 Enum, SqlAlchemy ORM Class, Data Class 的定义的 Python 模块, 然后将数据 load 到一个 Sqlite 数据库中. 所有的 IO 都会走本地的 Sqlite 数据库, 这样会获得非常高的性能.
+
 
 .. _install:
 

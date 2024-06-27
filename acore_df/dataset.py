@@ -2,10 +2,15 @@
 
 import typing as T
 import dataclasses
+from pathlib import Path
+from urllib.request import urlopen
 from functools import cached_property
 
 import polars as pl
 import sqlalchemy as sa
+
+from ._version import __version__
+from .paths import path_sqlite
 
 T_BASE_ORM_MODEL = T.TypeVar("T_BASE_ORM_MODEL")
 T_BASE_DATA_CLASS = T.TypeVar("T_BASE_DATA_CLASS")
@@ -70,7 +75,7 @@ class BaseDataset(T.Generic[T_BASE_ORM_MODEL, T_BASE_DATA_CLASS]):
         """
         return self.row_map.get(id)
 
-    def get_by_kv(self, kvs: T.Dict[str, T.Any]) -> T.List[T_BASE_DATA_CLASS]:
+    def get_by_kvs(self, kvs: T.Dict[str, T.Any]) -> T.List[T_BASE_DATA_CLASS]:
         """
         Get a list of data class instances by key-value pairs.
 
@@ -88,3 +93,11 @@ class BaseDataset(T.Generic[T_BASE_ORM_MODEL, T_BASE_DATA_CLASS]):
                 data = self.data_class(**row._asdict())
                 results.append(data)
         return results
+
+
+def download_sqlite(path_sqlite: Path = path_sqlite):
+    """
+    Download the sqlite database file from the GitHub release page.
+    """
+    url = f"https://github.com/MacHu-GWU/acore_df-project/releases/download/{__version__}/acore_df.sqlite"
+    path_sqlite.write_bytes(urlopen(url).read())
