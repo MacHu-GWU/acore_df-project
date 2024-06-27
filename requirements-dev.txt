@@ -4,3 +4,5 @@ twine                                   # make distribution archive
 wheel                                   # make pre-compiled distribution package
 build                                   # build distribution package
 jinja2
+openpyxl
+xlsx2csv

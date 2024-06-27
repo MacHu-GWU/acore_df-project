@@ -80,12 +80,17 @@ class TypeSpec:
     dc_type: T.Any = dataclasses.field()
 
 
+try:
+    pl_String = pl.String
+except:
+    pl_String = pl.Utf8
+
 type_spec_mapper = {
     pl.Int64: TypeSpec(pl_type=pl.Int64, sa_type=sa.Integer, dc_type="int"),
     pl.Int32: TypeSpec(pl_type=pl.Int32, sa_type=sa.Integer, dc_type="int"),
     pl.Int16: TypeSpec(pl_type=pl.Int16, sa_type=sa.Integer, dc_type="int"),
     pl.Int8: TypeSpec(pl_type=pl.Int8, sa_type=sa.Integer, dc_type="int"),
-    pl.String: TypeSpec(pl_type=pl.String, sa_type=sa.String, dc_type="str"),
+    pl_String: TypeSpec(pl_type=pl_String, sa_type=sa.String, dc_type="str"),
 }
 
 Base = orm.declarative_base()
@@ -127,6 +132,7 @@ def load_dataset(
         pass
     if dataset.mapping:
         df = df.rename(mapping=dataset.mapping)
+    df = df.filter(pl.col(dataset.id_col).is_not_null())
 
     # extract type spec
     attrs = dict()
@@ -177,6 +183,7 @@ def generate_code(
     :param path_model_py: path to the generated ORM class definition file.
     """
     path_sqlite.unlink(missing_ok=True)
+
     engine = sa.create_engine(f"sqlite:///{path_sqlite}")
     dataset_metadata_list = list()
     for dataset in dataset_list:
