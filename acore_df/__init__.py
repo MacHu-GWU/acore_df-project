@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 """
-Package Description.
+Azerothcore DataFrame.
 """
 
 from ._version import __version__
 
-__short_description__ = "Package short description."
+__short_description__ = "Azerothcore DataFrame."
 __license__ = "MIT"
 __author__ = "Sanhe Hu"
 __author_email__ = "husanhe@gmail.com"

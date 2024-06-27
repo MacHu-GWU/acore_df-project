@@ -18,3 +18,6 @@ x.y.z (Backlog)
 0.1.1 (2024-06-26)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - First release
+- Add the following public API:
+    - ``acore_df.api.dataset_mapping``
+    - ``acore_df.api.Lookup``

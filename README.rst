@@ -3,7 +3,7 @@
     :target: https://acore-df.readthedocs.io/en/latest/
     :alt: Documentation Status
 
-.. image:: https://github.com/MacHu-GWU/acore_df-project/workflows/CI/badge.svg
+.. image:: https://github.com/MacHu-GWU/acore_df-project/actions/workflows/main.yml/badge.svg
     :target: https://github.com/MacHu-GWU/acore_df-project/actions?query=workflow:CI
 
 .. image:: https://codecov.io/gh/MacHu-GWU/acore_df-project/branch/main/graph/badge.svg
@@ -50,7 +50,8 @@
 
 Welcome to ``acore_df`` Documentation
 ==============================================================================
-Documentation for ``acore_df``.
+.. image:: https://acore-df.readthedocs.io/en/latest/_static/acore_df-logo.png
+    :target: https://acore-df.readthedocs.io/en/latest/
 
 
 .. _install:
